@@ -1,9 +1,11 @@
 import model.Html;
+import model.Requisicao;
 
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Arrays;
 
 public class ConectionHandler {
 
@@ -40,14 +42,12 @@ public class ConectionHandler {
                     int tam = s.getInputStream().read(buffer);
 
                     String req = new String(buffer, 0, tam);
-                    String[] linhas = req.split("\n");
-                    String[] primeira = linhas[0].split(" ");
+
+                    Requisicao requisicao = new Requisicao(req);
 
 
-                    System.out.println("COMANDO = " + primeira[0]);
-                    System.out.println("DOCUMENTO = " + primeira[1]);
-                    System.out.println("DOCUMENTO = " + linhas[5]);
-                    System.out.println(req);
+
+                    //System.out.println(req);
                     System.out.println("\n----------------------\n\n");
                     s.getOutputStream().write(("HTTP/1.1 200 OK\nContent-Type: text/html; charset=UTF-8\n\n").getBytes("UTF-8"));
                     s.getOutputStream().write((Html.getBody()).getBytes("UTF-8"));

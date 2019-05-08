@@ -2,7 +2,7 @@ package model;
 
 public class Html {
     private static String content = "<div class=\"onibus\">\n" +
-            "        <div onclick=\"window.open('1','_self')\" class=\"bancos\">1</div>\n" +
+            "        <div onclick=\"window.open('?lugar=1','_self')\" class=\"bancos\">1</div>\n" +
             "        <div onclick=\"window.open('/3','_self')\" class=\"bancos\">3</div>\n" +
             "        <div onclick=\"window.open('/5','_self')\" class=\"bancos\">5</div>\n" +
             "        <div onclick=\"window.open('/7','_self')\" class=\"bancos\">7</div>\n" +
