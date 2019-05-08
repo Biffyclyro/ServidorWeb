@@ -1,34 +1,66 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
-public class Logger {
-    private static int TAM_MAX_BUFFER =10;
-    private static ArrayList<String> buffer = new ArrayList<>();
-    private static Object cheio = new Object();
-    private static Object vazio = new Object();
+public class Logger implements Runnable {
+    private final int TAM_MAX_BUFFER =10;
+    private final Queue<String> buffer = new LinkedList<>();
+    private Object cheio = new Object();
+    private Object vazio = new Object();
 
-    public static int getTAM_MAX_BUFFER() {
-        return TAM_MAX_BUFFER;
+
+    public void writeBuffer(){
+
+
+        while (true){
+            if (buffer.size()==TAM_MAX_BUFFER){
+                synchronized (cheio){
+                    try{
+                        cheio.wait();
+                    }catch (InterruptedException e){e.printStackTrace();}
+                }
+
+                synchronized (buffer){
+                    buffer.add("olá");
+                }
+
+                synchronized (vazio){
+                    if(buffer.size()==1){
+                        vazio.notify();
+                    }
+                }
+            }
+        }
     }
 
-    public static ArrayList<String> getBuffer() {
-        return buffer;
+    @Override
+    public void run() {
+
+        while (true){
+            synchronized (vazio){
+                if (buffer.size()==0){
+
+                    try {
+                        vazio.wait();
+                    }catch (InterruptedException e){e.printStackTrace();}
+                }
+
+                synchronized (buffer){
+                    buffer.remove();
+                }
+
+
+                synchronized (cheio){
+
+                    cheio.notify();
+
+                }
+            }
+
+        }
+
     }
 
-    public static Object getCheio() {
-        return cheio;
-    }
-
-    public static Object getVazio() {
-        return vazio;
-    }
-
-    public static void adicionaBuffer(String log){
-        buffer.add(log);
-    }
-
-    public static String limparBuffer(){
-        return buffer.remove(0);
-    }
 }

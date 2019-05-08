@@ -43,12 +43,14 @@ public class ConectionHandler {
                     String[] linhas = req.split("\n");
                     String[] primeira = linhas[0].split(" ");
 
+
                     System.out.println("COMANDO = " + primeira[0]);
                     System.out.println("DOCUMENTO = " + primeira[1]);
+                    System.out.println("DOCUMENTO = " + linhas[5]);
                     System.out.println(req);
                     System.out.println("\n----------------------\n\n");
                     s.getOutputStream().write(("HTTP/1.1 200 OK\nContent-Type: text/html; charset=UTF-8\n\n").getBytes("UTF-8"));
-                    s.getOutputStream().write((Html.getHeader() + "<h1>Olá</h1>" + Html.getFooter()).getBytes("UTF-8"));
+                    s.getOutputStream().write((Html.getBody()).getBytes("UTF-8"));
                     // s.getOutputStream().write(("HTTP/1.1 200 OK\nContent-Type: text/Html charset=UTF-8\n\n" + "<Html><body><h3>Olá</h3></body></Html>").getBytes());
 
 
