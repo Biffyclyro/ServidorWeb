@@ -1,61 +1,42 @@
 package model;
 
-import model.Lugar;
-
-import javax.sound.midi.Sequence;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
-public  class Onibus {
-    private static String linha = "POA-SM";
-    private static String diaViagem= "09/05/2019";
+public class Onibus {
+
     private static ArrayList<Lugar> lugares = new ArrayList<>();
     private static final int LUGARES = 52;
-    private static int vagas =52;
+    private static int vagasRestantes = 52;
 
     public Onibus() {
 
-        for (int i = 0; i<LUGARES; i++){lugares.add(new Lugar(i+1));}
-
-    }
-
-    public static void main(String[] args) {
-        lugares.forEach(System.out::println);
-    }
-
-    public boolean venderLugar(int numeroLugar, Passageiro passageiro){
-        if (lugares.get(numeroLugar).isReservado()==false){
-            lugares.get(numeroLugar).setReservado(true);
-            lugares.get(numeroLugar).setPassageiro(passageiro);
-
-            this.vagas --;
-            return true;
-        }else{
-            return false;
+        for ( int i = 0; i < LUGARES; i++ ) {
+            lugares.add(new Lugar(i+1));
         }
     }
 
+    public boolean venderLugar(int numeroLugar, Passageiro passageiro) {
+        synchronized ( lugares ) {
+            Lugar lugar = lugares.get(numeroLugar);
 
+            if ( !lugar.isReservado() ) {
+                lugar.setReservado(true);
+                lugar.setPassageiro(passageiro);
+                lugar.setDataTempo(LocalDateTime.now());
 
-    public static int getVagas() {
-        return vagas;
+                vagasRestantes--;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static int getVagasRestantes() {
+        return vagasRestantes;
     }
 
     public static ArrayList<Lugar> getLugares() {
         return lugares;
     }
-
-    public static String getLinha() {
-        return linha;
-    }
-
-
-
-    public static String getDiaViagem() {
-        return diaViagem;
-    }
-
-
 }

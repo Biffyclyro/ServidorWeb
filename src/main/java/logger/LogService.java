@@ -42,7 +42,7 @@ public class LogService implements Runnable {
 
     private void writeToFile() {
         synchronized (vazio) {
-            if ( buffer.size()==0 ) {
+            if ( buffer.size() == 0 ) {
                 try {
                     vazio.wait();
                 } catch ( InterruptedException e ) {
