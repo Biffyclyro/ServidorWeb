@@ -7,12 +7,12 @@ import java.util.Date;
 
 public class Onibus {
     private String linha;
-    private Date diaViagem;
+    private String diaViagem;
     private ArrayList<Lugar> lugares = new ArrayList<>();
     private int LUGARES = 42;
     private int vagas =42;
 
-    public Onibus(String linha, Date diaViagem) {
+    public Onibus(String linha, String diaViagem) {
         this.linha = linha;
         this.diaViagem = diaViagem;
         for (int i = 0; i<42; i++){lugares.add(new Lugar(i+1));}
@@ -49,11 +49,11 @@ public class Onibus {
         this.linha = linha;
     }
 
-    public Date getDiaViagem() {
+    public String getDiaViagem() {
         return diaViagem;
     }
 
-    public void setDiaViagem(Date diaViagem) {
+    public void setDiaViagem(String diaViagem) {
         this.diaViagem = diaViagem;
     }
 }

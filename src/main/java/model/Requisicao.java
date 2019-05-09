@@ -28,10 +28,12 @@ public class Requisicao {
 
                 this.params.put(chave, valor);
 
+
             }
         } else {
             this.paginaReq = header;
         }
+
     }
 
 
