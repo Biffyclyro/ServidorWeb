@@ -12,10 +12,10 @@ public class LogService implements Runnable {
     private final File file = new File("/tmp/servidorWeb-" + LocalDateTime.now());
     private final FileWriter logFile = new FileWriter(file);
 
-    private final int TAM_MAX_BUFFER = 50;
-    private final Queue<String> buffer = new LinkedList<>();
-    private final Object cheio = new Object();
-    private final Object vazio = new Object();
+    private static final int TAM_MAX_BUFFER = 50;
+    private static final Queue<String> buffer = new LinkedList<>();
+    private static final Object cheio = new Object();
+    private static final Object vazio = new Object();
 
     private LogService() throws IOException {
     }
@@ -72,24 +72,24 @@ public class LogService implements Runnable {
         }
     }
 
-    public void log(String msg) {
-        if ( this.buffer.size() == TAM_MAX_BUFFER ) {
-            synchronized (this.cheio) {
+    public static void log(String msg) {
+        if ( buffer.size() == TAM_MAX_BUFFER ) {
+            synchronized (cheio) {
                 try {
-                    this.cheio.wait();
+                    cheio.wait();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
         }
 
-        synchronized (this.buffer) {
-            this.buffer.add("[" + LocalDateTime.now() + "]: " + msg);
+        synchronized (buffer) {
+            buffer.add("[" + LocalDateTime.now() + "]: " + msg);
         }
 
-        synchronized ( this.vazio ) {
-            if ( this.buffer.size() == 1 ){
-                this.vazio.notify();
+        synchronized ( vazio ) {
+            if ( buffer.size() == 1 ){
+                vazio.notify();
             }
         }
     }

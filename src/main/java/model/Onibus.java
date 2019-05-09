@@ -2,24 +2,28 @@ package model;
 
 import model.Lugar;
 
+import javax.sound.midi.Sequence;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
-public class Onibus {
-    private String linha;
-    private String diaViagem;
-    private ArrayList<Lugar> lugares = new ArrayList<>();
-    private int LUGARES = 42;
-    private int vagas =42;
+public  class Onibus {
+    private static String linha = "POA-SM";
+    private static String diaViagem= "09/05/2019";
+    private static ArrayList<Lugar> lugares = new ArrayList<>();
+    private static final int LUGARES = 52;
+    private static int vagas =52;
 
-    public Onibus(String linha, String diaViagem) {
-        this.linha = linha;
-        this.diaViagem = diaViagem;
-        for (int i = 0; i<42; i++){lugares.add(new Lugar(i+1));}
+    public Onibus() {
+
+        for (int i = 0; i<LUGARES; i++){lugares.add(new Lugar(i+1));}
 
     }
 
-
+    public static void main(String[] args) {
+        lugares.forEach(System.out::println);
+    }
 
     public boolean venderLugar(int numeroLugar, Passageiro passageiro){
         if (lugares.get(numeroLugar).isReservado()==false){
@@ -33,27 +37,25 @@ public class Onibus {
         }
     }
 
-    public int getVagas() {
+
+
+    public static int getVagas() {
         return vagas;
     }
 
-    public ArrayList<Lugar> getLugares() {
+    public static ArrayList<Lugar> getLugares() {
         return lugares;
     }
 
-    public String getLinha() {
+    public static String getLinha() {
         return linha;
     }
 
-    public void setLinha(String linha) {
-        this.linha = linha;
-    }
 
-    public String getDiaViagem() {
+
+    public static String getDiaViagem() {
         return diaViagem;
     }
 
-    public void setDiaViagem(String diaViagem) {
-        this.diaViagem = diaViagem;
-    }
+
 }

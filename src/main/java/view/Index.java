@@ -1,8 +1,10 @@
 package view;
 
 import model.Html;
+import model.Onibus;
+import model.ThreadConexao;
 
-public class Index {
+public class Index extends Pagina {
     private String onibus1 = gerarOnibus();
     private static String style = ".onibus{\n" +
             "        width: 1150px;\n" +
@@ -54,9 +56,12 @@ public class Index {
 
     public String gerarOnibus() {
         String onibus="";
-        for (int i = 1; i<56; i += 2 ){
-            
-            onibus +="<div onclick=\"window.open('?lugar=" + i + "','_self')\" class=\"bancos\">" + i + "</div>\n";
+        for (int i = 1; i<52; i += 2 ){
+            if(!Onibus.getLugares().get(i).isReservado()) {
+                onibus += "<div onclick=\"window.open('?lugar=" + i + "','_self')\" class=\"bancos\">" + i + " Livre" + "</div>\n";
+            }else{
+                onibus += "<div onclick=\"alert('Lugar reservado por "+ Onibus.getLugares().get(i).getPassageiro().getNome() +"')\" class=\"bancos\"  style=\" background-color: #ff3911;\">" + i + " Livre" + "</div>\n";
+            }
 
             if(i==25){
                 i=0;
@@ -66,14 +71,15 @@ public class Index {
                 }
                 i=25;
             }else if(i==51){
-                i=28;
+                i=27;
             }
         }
         return onibus;
     }
 
-    public String getBody() {
+
+    @Override
+    public String render() {
         return body;
     }
-
 }

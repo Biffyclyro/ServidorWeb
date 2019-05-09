@@ -1,24 +1,24 @@
 package model;
 
 
-import controller.ControllerIndex;
+import view.Formulario;
 import view.Index;
+import view.Pagina;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ThreadConexao implements Runnable {
 
     private Socket s;
-    private Onibus onibus;
-    private static String page = new Index().getBody();
-
-    public ThreadConexao(Socket s, Onibus on) {
+    public  Map<String, Class<? extends Pagina>> rotas = new HashMap<>();
+    public static Onibus onibus = new Onibus();
+    public ThreadConexao(Socket s) {
         this.s = s;
-        this.onibus = on;
-
-
+        rotas.put("/", Index.class);
+        rotas.put("/formulario", Formulario.class);
     }
 
     @Override
@@ -33,15 +33,22 @@ public class ThreadConexao implements Runnable {
                 String req = new String(buffer, 0, tam);
 
                 Requisicao requisicao = new Requisicao(req);
-                new ControllerIndex(requisicao, onibus);
+
+                String page;
+                if(requisicao.getPaginaReq().equals("/")){
+                    page = new Index().render();
+
+                }  else {
+                    page = new Formulario().render();
 
 
-
-
-                //System.out.println(req);
-                System.out.println("\n----------------------\n\n");
+                }
                 s.getOutputStream().write(("HTTP/1.1 200 OK\nContent-Type: text/html; charset=UTF-8\n\n").getBytes("UTF-8"));
                 s.getOutputStream().write((page).getBytes("UTF-8"));
+
+                //System.out.println(req);
+                //System.out.println("\n----------------------\n\n");
+
                 // s.getOutputStream().write(("HTTP/1.1 200 OK\nContent-Type: text/Html charset=UTF-8\n\n" + "<Html><body><h3>Olá</h3></body></Html>").getBytes());
 
 
@@ -53,7 +60,7 @@ public class ThreadConexao implements Runnable {
         }
     }
 
-    public static void setPage(String p) {
-        page = p;
-    }
+   // public static void setPage(String p) {
+    //    page = p;
+    //}
 }

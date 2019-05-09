@@ -2,7 +2,7 @@ package view;
 
 import model.Html;
 
-public class Formulario {
+public class Formulario extends Pagina{
     private String body = "<!doctype html>\n" +
             "<html lang=\"pt-br\">\n" +
             "  <head>\n" +
@@ -17,17 +17,13 @@ public class Formulario {
             "    \n" +
             "    <div class=\"container col-md-6 mt-5\">\n" +
             "      <h1><b>Sistema de Reservas</b></h1>\n" +
-            "      <form method=\"post\">\n" +
+            "      <form method=\"get\" action=\"/\">\n" +
             "      <div class=\"form-group\">\n" +
-            "        <label for=\"exampleInputEmail1\">Nome</label>\n" +
-            "        <input type=\"email\" class=\"form-control\" id=\"exampleInputEmail1\" placeholder=\"Entre com o Nome\">\n" +
+            "        <label for=\"nome\">Nome</label>\n" +
+            "        <input type=\"text\" class=\"form-control\" id=\"nome\" placeholder=\"Entre com o Nome\">\n" +
             "        \n" +
             "      </div>\n" +
-            "      <div class=\"form-group\">\n" +
-            "        <label for=\"data\">Data</label>\n" +
-            "        <input type=\"text\" class=\"form-control\" id=\"data\" placeholder=\"Entre com a Data\">\n" +
-            "      </div>\n" +
-            "      \n" +
+
             "      <button type=\"submit\" class=\"btn btn-primary\">Reservar</button>\n" +
             "    </form>\n" +
             "    </div>\n" +
@@ -36,7 +32,9 @@ public class Formulario {
             "  </body>\n" +
             "</html>\n";
 
-    public String getBody() {
+    @Override
+    public String render() {
         return body;
     }
+
 }

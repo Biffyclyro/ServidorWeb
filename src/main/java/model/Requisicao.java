@@ -1,5 +1,7 @@
 package model;
 
+import logger.LogService;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,13 +15,13 @@ public class Requisicao {
 
     public Requisicao(String buffer) {
         String[] linhas = buffer.split("\n");
-        String header = linhas[1].split("GET /")[0].split(" ")[0];
+        String header = linhas[0].split(" ")[1];
 
         if ( header.contains("?") ) {
             String[] pag = header.split("\\?", 1);
             this.paginaReq = pag[0];
 
-            String[] params = pag[1].split("&");
+         /*   String[] params = pag[1].split("&");
 
             for ( String param : params) {
                 String[] separado = param.split("=");
@@ -29,11 +31,12 @@ public class Requisicao {
                 this.params.put(chave, valor);
 
 
-            }
+            }*/
         } else {
             this.paginaReq = header;
         }
-
+        LogService.log(buffer);
+    LogService.log(this.paginaReq);
     }
 
 

@@ -1,4 +1,5 @@
 
+import logger.LogService;
 import model.Onibus;
 import model.ThreadConexao;
 import view.Index;
@@ -8,22 +9,22 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class WebServer {
-    private static String page = new Index().getBody();
+    static final int PORTA = 8888;
+
 
     public static void main(String[] args) throws IOException {
-
-        ServerSocket ss = new ServerSocket(8888);
-        Onibus on = new Onibus("SM-POA", "08/04/2019");
+        LogService logSrvc = LogService.logServiceBuilder();
+        ServerSocket ss = new ServerSocket(PORTA);
+        LogService.log("Ouvindo na porta "+ PORTA);
+        //Onibus on = new Onibus("SM-POA", "08/04/2019");
         while (true) {
             Socket s = ss.accept();
-            new Thread(new ThreadConexao(s,on)).start();
+            new Thread(new ThreadConexao(s)).start();
 
         }
     }
 
-    public static void setPage(String page) {
-        WebServer.page = page;
-    }
+
 
 
 }
