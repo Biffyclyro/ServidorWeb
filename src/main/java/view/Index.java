@@ -37,6 +37,27 @@ public class Index extends Pagina {
     private  String content = "<div class=\"onibus\">\n" + onibus1 + "    </div>";
 
 
+
+    public Index(String alert) {
+        gerarOnibus();
+        this.body = "<!DOCTYPE Html>\n" +
+                "<Html lang =" + "pt-BR" + ">\n" +
+                "<head>\n" +
+                "<style>\n"+
+                style+
+                "</style>\n"+
+                "\t<title>Sistema de Reservas</title>\n" +
+                "</head>\n" +
+                "<content>\n" +
+                "<h1><b>Sistema de Reservas</b></h1>\n"+
+                content +
+                "</content>"+
+                "<script> " + alert  + "</script>"+
+                "</Html>";
+    }
+
+
+
     public Index() {
         gerarOnibus();
         this.body = "<!DOCTYPE Html>\n" +
@@ -66,7 +87,7 @@ public class Index extends Pagina {
                 onibus.append("<div onclick=\"alert('Lugar reservado por ")
                         .append(Onibus.getLugares().get(i).getPassageiro().getNome())
                         .append("')\" class=\"bancos\" style=\" background-color: #ff3911;\">")
-                        .append(i).append(" Livre").append("</div>\n");
+                        .append(i).append(" "+Onibus.getLugares().get(i).getPassageiro().getNome()).append("</div>\n");
             }
             if ( i==25 ) {
                 i = 0;

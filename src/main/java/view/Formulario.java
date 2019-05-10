@@ -20,7 +20,7 @@ public class Formulario extends Pagina {
                 "    \n" +
                 "    <div class=\"container col-md-6 mt-5\">\n" +
                 "      <h1><b>Sistema de Reservas</b></h1>\n" +
-                "      <form method=\"get\" action=\"/\">\n" +
+                "      <form method=\"get\" action=\"/compra\">\n" +
                 "      <div class=\"form-group\">\n" +
                 "        <label for=\"nome\">Nome</label>\n" +
                 "        <input type=\"text\" name=\"nome\" class=\"form-control\" id=\"nome\" placeholder=\"Entre com o Nome\">\n" +

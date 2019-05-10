@@ -2,6 +2,7 @@ package conexao;
 
 
 import model.Onibus;
+import model.Passageiro;
 import view.Formulario;
 import view.Index;
 import view.NotFound;
@@ -43,6 +44,12 @@ public class ConectionHandler implements Runnable {
 
                 case "/formulario":
                     pagina = new Formulario(requisicao).render();
+                    break;
+
+                case "/compra":
+                    if(onibus.venderLugar(Integer.parseInt(requisicao.getParams().get("lugar")),new Passageiro(requisicao.getParams().get("nome")))){
+                        pagina = new Index("alert('reservado com sucesso')").render();
+                    }
                     break;
 
                 default:

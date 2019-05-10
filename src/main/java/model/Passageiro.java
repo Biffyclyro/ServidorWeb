@@ -7,9 +7,9 @@ public class Passageiro {
     private Date dataPassagem;
     private String requisicao;
 
-    public Passageiro(String nome, Date dataAtual){
+    public Passageiro(String nome){
         this.nome = nome;
-        this.dataPassagem = dataAtual;
+        //this.dataPassagem = dataAtual;
     }
 
     public String getNome() {
