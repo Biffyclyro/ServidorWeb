@@ -24,13 +24,12 @@ public class Requisicao {
 
             for ( String param : params) {
                 int idx = param.indexOf("=");
-                this.params.put(param.substring(0, idx), param.substring(1, idx));
+                this.params.put(param.substring(0, idx), param.substring(idx+1));
             }
         } else {
             this.paginaReq = header;
         }
-
-    LogService.log(this.paginaReq);
+    LogService.log(this.toString());
     }
 
 
@@ -44,6 +43,10 @@ public class Requisicao {
 
     @Override
     public String toString() {
-        return super.toString();
+        StringBuilder str = new StringBuilder().append(this.paginaReq + "\n");
+        for ( String chave : this.params.keySet() ) {
+            str.append( chave + "=\"" + this.params.get(chave) + "\"\n");
+        }
+        return str.toString();
     }
 }
