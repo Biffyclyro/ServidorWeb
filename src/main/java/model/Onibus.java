@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Onibus {
 
     private static ArrayList<Lugar> lugares = new ArrayList<>();
-    private static final int LUGARES = 52;
-    private static int vagasRestantes = 52;
+    private static final int LUGARES = 53;
+    private static int vagasRestantes = 53;
 
     public Onibus() {
 

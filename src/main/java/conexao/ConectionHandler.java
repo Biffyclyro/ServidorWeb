@@ -42,7 +42,7 @@ public class ConectionHandler implements Runnable {
                     break;
 
                 case "/formulario":
-                    pagina = new Formulario().render();
+                    pagina = new Formulario(requisicao).render();
                     break;
 
                 default:

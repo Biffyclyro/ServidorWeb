@@ -1,8 +1,11 @@
 package view;
 
+import conexao.ConectionHandler;
+import conexao.Requisicao;
+
 public class Formulario extends Pagina {
 
-    public Formulario() {
+    public Formulario(Requisicao requisicao) {
         this.body = "<!doctype html>\n" +
                 "<html lang=\"pt-br\">\n" +
                 "  <head>\n" +
@@ -20,7 +23,9 @@ public class Formulario extends Pagina {
                 "      <form method=\"get\" action=\"/\">\n" +
                 "      <div class=\"form-group\">\n" +
                 "        <label for=\"nome\">Nome</label>\n" +
-                "        <input type=\"text\" class=\"form-control\" id=\"nome\" placeholder=\"Entre com o Nome\">\n" +
+                "        <input type=\"text\" name=\"nome\" class=\"form-control\" id=\"nome\" placeholder=\"Entre com o Nome\">\n" +
+
+                "        <input type=\"hidden\" id=\"nome\" name=\"lugar\" value=\"" + requisicao.getParams().get("lugar")  + "\">" +
                 "        \n" +
                 "      </div>\n" +
 

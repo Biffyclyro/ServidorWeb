@@ -57,7 +57,7 @@ public class Index extends Pagina {
     private String gerarOnibus() {
         StringBuilder onibus= new StringBuilder();
 
-        for ( int i = 1; i < 52; i += 2 ){
+        for ( int i = 1; i < Onibus.getLugares().size(); i += 2 ){
             if( !Onibus.getLugares().get(i).isReservado() ) {
                 onibus.append("<div onclick=\"window.open('/formulario?lugar=")
                         .append(i).append("','_self')\" class=\"bancos\">")
