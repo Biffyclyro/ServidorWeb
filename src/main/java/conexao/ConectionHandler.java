@@ -49,7 +49,10 @@ public class ConectionHandler implements Runnable {
                 case "/compra":
                     if(onibus.venderLugar(Integer.parseInt(requisicao.getParams().get("lugar")),new Passageiro(requisicao.getParams().get("nome")))){
                         pagina = new Index("alert('reservado com sucesso')").render();
+                    }else{
+                        pagina = new Index("alert('Lugar não pôde ser reservado')").render();
                     }
+
                     break;
 
                 default:

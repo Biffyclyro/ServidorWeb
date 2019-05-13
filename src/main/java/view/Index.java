@@ -32,7 +32,11 @@ public class Index extends Pagina {
             "        height: 50px;\n" +
             "        margin: 8px;\n" +
             "        float: left;\n" +
-            "    }";
+            "    }"+
+            "a{"+
+            "color: #000;"+
+            "text-decoration: none;"+
+            "}";
 
     private  String content = "<div class=\"onibus\">\n" + onibus1 + "    </div>";
 
@@ -80,9 +84,9 @@ public class Index extends Pagina {
 
         for ( int i = 1; i < Onibus.getLugares().size(); i += 2 ){
             if( !Onibus.getLugares().get(i).isReservado() ) {
-                onibus.append("<div onclick=\"window.open('/formulario?lugar=")
-                        .append(i).append("','_self')\" class=\"bancos\">")
-                        .append(i).append(" Livre").append("</div>\n");
+                onibus.append("<a href=\"/formulario?lugar=")
+                        .append(i).append("\" class=\"bancos\">")
+                        .append(i).append(" Livre").append("</a>\n");
             } else {
                 onibus.append("<div onclick=\"alert('Lugar reservado por ")
                         .append(Onibus.getLugares().get(i).getPassageiro().getNome())
