@@ -1,15 +1,18 @@
 package model;
 
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Passageiro {
-    private String nome;
-    private Date dataPassagem;
-    private String requisicao;
+    private String        nome;
+    private LocalDateTime dataPassagem;
+    private String        requisicao;
+    private static final DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern("HH:mm dd/mm");
 
     public Passageiro(String nome){
         this.nome = nome;
-        //this.dataPassagem = dataAtual;
+        this.dataPassagem = LocalDateTime.now();
     }
 
     public String getNome() {
@@ -20,12 +23,8 @@ public class Passageiro {
         this.nome = nome;
     }
 
-    public Date getDataAtual() {
-        return dataPassagem;
-    }
-
-    public void setDataAtual(Date dataAtual) {
-        this.dataPassagem = dataAtual;
+    public String getDataPassgem() {
+        return dataPassagem.format(formatter);
     }
 
     public String getRequisicao() {

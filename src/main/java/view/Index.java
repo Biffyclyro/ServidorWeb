@@ -1,6 +1,7 @@
 package view;
 
 import model.Onibus;
+import model.Passageiro;
 
 public class Index extends Pagina {
 
@@ -83,15 +84,19 @@ public class Index extends Pagina {
         StringBuilder onibus= new StringBuilder();
 
         for ( int i = 1; i < Onibus.getLugares().size(); i += 2 ){
+            Passageiro psg = Onibus.getLugares().get(i).getPassageiro();
+
             if( !Onibus.getLugares().get(i).isReservado() ) {
                 onibus.append("<a href=\"/formulario?lugar=")
                         .append(i).append("\" class=\"bancos\">")
                         .append(i).append(" Livre").append("</a>\n");
             } else {
                 onibus.append("<div onclick=\"alert('Lugar reservado por ")
-                        .append(Onibus.getLugares().get(i).getPassageiro().getNome())
+                        .append(psg.getNome())
                         .append("')\" class=\"bancos\" style=\" background-color: #ff3911;\">")
-                        .append(i).append(" "+Onibus.getLugares().get(i).getPassageiro().getNome()).append("</div>\n");
+                        .append(i).append(" "+psg.getNome())
+                        .append("</br>").append(psg.getDataPassgem())
+                        .append( "</div>\n");
             }
             if ( i==25 ) {
                 i = 0;
