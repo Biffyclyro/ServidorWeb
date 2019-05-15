@@ -5,9 +5,8 @@ import java.util.ArrayList;
 
 public class Onibus {
 
-    private static ArrayList<Lugar> lugares = new ArrayList<>();
     private static final int LUGARES = 53;
-    private static int vagasRestantes = 53;
+    private static ArrayList<Lugar> lugares = new ArrayList<Lugar>(LUGARES);
 
     public Onibus() {
 
@@ -17,26 +16,22 @@ public class Onibus {
     }
 
     public boolean venderLugar(int numeroLugar, Passageiro passageiro) {
-        synchronized ( lugares ) {
-            Lugar lugar = lugares.get(numeroLugar);
+        Lugar lugar = lugares.get(numeroLugar);
 
+        synchronized ( lugares ) {
             if ( !lugar.isReservado() ) {
                 lugar.setReservado(true);
-                lugar.setPassageiro(passageiro);
-                lugar.setDataTempo(LocalDateTime.now());
-
-                vagasRestantes--;
-                return true;
+            } else {
+                return false;
             }
         }
-        return false;
+        lugar.setPassageiro(passageiro);
+        lugar.setDataTempo(LocalDateTime.now());
+
+        return true;
     }
 
-    public static int getVagasRestantes() {
-        return vagasRestantes;
-    }
-
-    public static ArrayList<Lugar> getLugares() {
+   public static ArrayList<Lugar> getLugares() {
         return lugares;
     }
 }
