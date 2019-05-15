@@ -1,6 +1,7 @@
 package conexao;
 
 
+import logger.LogService;
 import model.Onibus;
 import model.Passageiro;
 import view.Formulario;
@@ -12,11 +13,13 @@ import java.net.Socket;
 
 public class ConectionHandler implements Runnable {
 
-    private Socket s;
+    private final Socket s;
+    private final String REMOTEADDR;
     public static Onibus onibus = new Onibus();
 
     public ConectionHandler(Socket s) {
         this.s = s;
+        this.REMOTEADDR = s.getInetAddress().getHostAddress();
     }
 
     public static void handle(Socket s) {
@@ -28,12 +31,11 @@ public class ConectionHandler implements Runnable {
         try {
 
             byte[] buffer = new byte[1024];
-
             int tam = s.getInputStream().read(buffer);
 
-            String req = new String(buffer, 0, tam);
+            Requisicao requisicao = new Requisicao(new String(buffer, 0, tam));
 
-            Requisicao requisicao = new Requisicao(req);
+            LogService.log(REMOTEADDR + '\n' + requisicao);
 
             String pagina  = null;
 

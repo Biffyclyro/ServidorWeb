@@ -29,7 +29,6 @@ public class Requisicao {
         } else {
             this.paginaReq = header;
         }
-    LogService.log(this.toString());
     }
 
 
