@@ -1,21 +1,26 @@
 package logger;
 
+import javax.swing.text.DateFormatter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.Queue;
 
 public class LogService implements Runnable {
 
-    private final File file = new File("/tmp/servidorWeb-" + LocalDateTime.now());
+    private final File file = new File("servidorWeb-log.txt");
     private final FileWriter logFile = new FileWriter(file);
 
-    private static final int TAM_MAX_BUFFER = 50;
+    private static final DateTimeFormatter formatter =
+            DateTimeFormatter.ofPattern(
+            "yyyy/MM/dd-HH:mm");
+
     private static final Queue<String> buffer = new LinkedList<>();
-    private static final Object cheio = new Object();
     private static final Object vazio = new Object();
+
 
     private LogService() throws IOException {
     }
@@ -41,7 +46,7 @@ public class LogService implements Runnable {
     }
 
     private void writeToFile() {
-        synchronized (vazio) {
+        synchronized ( vazio ) {
             if ( buffer.size() == 0 ) {
                 try {
                     vazio.wait();
@@ -54,7 +59,7 @@ public class LogService implements Runnable {
                 try {
                     System.out.println(buffer.peek());
                     logFile.write(buffer.poll());
-                } catch (IOException e) {
+                } catch ( IOException e ) {
                     e.printStackTrace();
                 } finally {
                     try {
@@ -64,27 +69,13 @@ public class LogService implements Runnable {
                     }
                 }
             }
-
-
-            synchronized ( cheio ){
-                cheio.notify();
-            }
         }
     }
 
     public static void log(String msg) {
-        if ( buffer.size() == TAM_MAX_BUFFER ) {
-            synchronized (cheio) {
-                try {
-                    cheio.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
 
         synchronized (buffer) {
-            buffer.add("[" + LocalDateTime.now() + "]: " + msg);
+            buffer.add("[" + LocalDateTime.now().format(formatter) + "]: " + msg);
         }
 
         synchronized ( vazio ) {
