@@ -19,6 +19,7 @@ public class Index extends Pagina {
             "    }\n" +
             "\n" +
             "    .bancos{\n" +
+            "font-size: 12px;"+
             "        background-color: #20B2AA;\n" +
             "        width: 70px;\n" +
             "        height: 50px;\n" +
