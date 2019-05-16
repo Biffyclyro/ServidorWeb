@@ -1,4 +1,3 @@
-
 import conexao.ConectionHandler;
 import logger.LogService;
 
@@ -11,10 +10,10 @@ public class WebServer {
 
     public static void main(String[] args) throws IOException {
 
-        LogService logSrvc = LogService.logServiceBuilder();
+        LogService   logSrvc = LogService.logServiceBuilder();
+        ServerSocket ss      = new ServerSocket(PORTA);
 
-        ServerSocket ss = new ServerSocket(PORTA);
-        LogService.log("Ouvindo na porta "+ PORTA);
+        LogService.log("Ouvindo na porta " + PORTA);
 
         while ( true ) {
             ConectionHandler.handle(ss.accept());

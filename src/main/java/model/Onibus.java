@@ -5,14 +5,18 @@ import java.util.ArrayList;
 
 public class Onibus {
 
-    private static final int LUGARES = 53;
-    private static ArrayList<Lugar> lugares = new ArrayList<Lugar>(LUGARES);
+    private static final int              LUGARES = 53;
+    private static       ArrayList<Lugar> lugares = new ArrayList<Lugar>(LUGARES);
 
     public Onibus() {
 
         for ( int i = 0; i < LUGARES; i++ ) {
-            lugares.add(new Lugar(i+1));
+            lugares.add(new Lugar(i + 1));
         }
+    }
+
+    public static ArrayList<Lugar> getLugares() {
+        return lugares;
     }
 
     public boolean venderLugar(int numeroLugar, Passageiro passageiro) {
@@ -29,9 +33,5 @@ public class Onibus {
         lugar.setDataTempo(LocalDateTime.now());
 
         return true;
-    }
-
-   public static ArrayList<Lugar> getLugares() {
-        return lugares;
     }
 }

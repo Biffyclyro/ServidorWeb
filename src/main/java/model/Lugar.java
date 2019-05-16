@@ -3,23 +3,25 @@ package model;
 import java.time.LocalDateTime;
 
 public class Lugar {
-    private int numero;
-    private Passageiro passageiro;
-    private boolean reservado = false;
+    private int           numero;
+    private Passageiro    passageiro;
+    private boolean       reservado = false;
     private LocalDateTime dataTempo;
 
     public Lugar(int numero) {
         this.numero = numero;
     }
 
-    public void setReservado(boolean reservado) {
-        this.reservado = reservado;
+    public int getNumero() {
+        return numero;
     }
-
-    public int getNumero() {return numero;}
 
     public boolean isReservado() {
         return reservado;
+    }
+
+    public void setReservado(boolean reservado) {
+        this.reservado = reservado;
     }
 
     public Passageiro getPassageiro() {

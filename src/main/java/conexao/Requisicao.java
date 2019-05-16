@@ -10,22 +10,20 @@ public class Requisicao {
     private final Map<String, String> params = new HashMap<>();
 
     Requisicao(String buffer) {
-        String[] linhas = buffer.split("\n");
-        String header = linhas[0].split(" ")[1];
+        String[] linhas     = buffer.split("\n");
+        String   primeiraLn = linhas[0].split(" ")[1];
 
-        if ( header.contains("?") ) {
-            String[] pag = header.split("\\?");
+        String[] pag_params = primeiraLn.split("\\?");
 
-            this.paginaReq = pag[0];
+        this.paginaReq = pag_params[0];
 
-           String[] params = pag[1].split("&");
+        if ( pag_params.length > 1 ) {
+            String[] params = pag_params[1].split("&");
 
-            for ( String param : params) {
+            for ( String param : params ) {
                 int idx = param.indexOf("=");
-                this.params.put(param.substring(0, idx), param.substring(idx+1));
+                this.params.put(param.substring(0, idx), param.substring(idx + 1));
             }
-        } else {
-            this.paginaReq = header;
         }
     }
 
@@ -42,7 +40,7 @@ public class Requisicao {
     public String toString() {
         StringBuilder str = new StringBuilder().append(this.paginaReq + "\n");
         for ( String chave : this.params.keySet() ) {
-            str.append( chave + "=\"" + this.params.get(chave) + "\"\n");
+            str.append(chave + "=\"" + this.params.get(chave) + "\"\n");
         }
         return str.toString();
     }

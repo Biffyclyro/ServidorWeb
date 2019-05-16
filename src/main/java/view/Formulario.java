@@ -24,7 +24,7 @@ public class Formulario extends Pagina {
                 "        <label for=\"nome\">Nome</label>\n" +
                 "        <input type=\"text\" name=\"nome\" class=\"form-control\" id=\"nome\" placeholder=\"Entre com o Nome\">\n" +
 
-                "        <input type=\"hidden\" id=\"nome\" name=\"lugar\" value=\"" + requisicao.getParams().get("lugar")  + "\">" +
+                "        <input type=\"hidden\" id=\"nome\" name=\"lugar\" value=\"" + requisicao.getParams().get("lugar") + "\">" +
                 "        \n" +
                 "      </div>\n" +
 

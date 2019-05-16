@@ -10,15 +10,12 @@ import java.util.Queue;
 
 public class LogService implements Runnable {
 
-    private final File file = new File("servidorWeb-log.txt");
-    private final FileWriter logFile = new FileWriter(file);
-
-    private static final DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern(
-            "yyyy/MM/dd-HH:mm");
-
-    private static final Queue<String> buffer = new LinkedList<>();
-    private static final Object vazio = new Object();
+    private static final DateTimeFormatter formatter = DateTimeFormatter
+            .ofPattern("yyyy/MM/dd-HH:mm");
+    private static final Queue<String>     buffer    = new LinkedList<>();
+    private static final Object            vazio     = new Object();
+    private final        File              file      = new File("servidorWeb-log.txt");
+    private final        FileWriter        logFile   = new FileWriter(file);
 
 
     private LogService() throws IOException {
@@ -29,12 +26,25 @@ public class LogService implements Runnable {
 
         try {
             ls = new LogService();
-        } catch (IOException e) {
+        } catch ( IOException e ) {
             e.printStackTrace();
         }
 
         new Thread(ls).start();
         return ls;
+    }
+
+    public static void log(String msg) {
+
+        synchronized ( buffer ) {
+            buffer.add("[" + LocalDateTime.now().format(formatter) + "]: " + msg);
+        }
+
+        synchronized ( vazio ) {
+            if ( buffer.size() == 1 ) {
+                vazio.notify();
+            }
+        }
     }
 
     @Override
@@ -63,23 +73,10 @@ public class LogService implements Runnable {
                 } finally {
                     try {
                         logFile.flush();
-                    } catch (IOException e) {
+                    } catch ( IOException e ) {
                         e.printStackTrace();
                     }
                 }
-            }
-        }
-    }
-
-    public static void log(String msg) {
-
-        synchronized (buffer) {
-            buffer.add("[" + LocalDateTime.now().format(formatter) + "]: " + msg);
-        }
-
-        synchronized ( vazio ) {
-            if ( buffer.size() == 1 ){
-                vazio.notify();
             }
         }
     }

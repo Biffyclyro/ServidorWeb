@@ -4,14 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Passageiro {
-    private String        nome;
-    private LocalDateTime dataPassagem;
-    private String        requisicao;
-    private static final DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("HH:mm dd/MM");
+    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd/MM");
+    private              String            nome;
+    private              LocalDateTime     dataPassagem;
+    private              String            requisicao;
 
-    public Passageiro(String nome){
-        this.nome = nome;
+    public Passageiro(String nome) {
+        this.nome         = nome;
         this.dataPassagem = LocalDateTime.now();
     }
 

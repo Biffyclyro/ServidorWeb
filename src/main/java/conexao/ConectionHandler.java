@@ -9,15 +9,16 @@ import view.NotFound;
 
 import java.io.IOException;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 
 public class ConectionHandler implements Runnable {
 
+    public static Onibus onibus = new Onibus();
     private final Socket s;
     private final String REMOTEADDR;
-    public static Onibus onibus = new Onibus();
 
     public ConectionHandler(Socket s) {
-        this.s = s;
+        this.s          = s;
         this.REMOTEADDR = s.getInetAddress().getHostAddress();
     }
 
@@ -28,15 +29,13 @@ public class ConectionHandler implements Runnable {
     @Override
     public void run() {
         try {
-
-            byte[] buffer = new byte[1024];
-            int tam = s.getInputStream().read(buffer);
-
+            byte[]     buffer     = new byte[1024];
+            int        tam        = s.getInputStream().read(buffer);
             Requisicao requisicao = new Requisicao(new String(buffer, 0, tam));
 
             LogService.log(REMOTEADDR + '\n' + requisicao);
 
-            String pagina  = null;
+            String pagina = null;
 
             switch ( requisicao.getPaginaReq() ) {
                 case "/":
@@ -48,9 +47,10 @@ public class ConectionHandler implements Runnable {
                     break;
 
                 case "/compra":
-                    if(onibus.venderLugar(Integer.parseInt(requisicao.getParams().get("lugar")),new Passageiro(requisicao.getParams().get("nome")))){
+                    if ( onibus.venderLugar(Integer.parseInt(requisicao.getParams()
+                            .get("lugar")), new Passageiro(requisicao.getParams().get("nome"))) ) {
                         pagina = new Index("alert('reservado com sucesso')").render();
-                    }else{
+                    } else {
                         pagina = new Index("alert('Lugar não pôde ser reservado')").render();
                     }
 
@@ -60,7 +60,7 @@ public class ConectionHandler implements Runnable {
                     pagina = new NotFound().render();
             }
 
-            s.getOutputStream().write((pagina).getBytes("UTF-8"));
+            s.getOutputStream().write((pagina).getBytes(StandardCharsets.UTF_8));
 
             s.close();
         } catch ( IOException e ) {
