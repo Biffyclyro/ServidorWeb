@@ -8,7 +8,7 @@ public class Passageiro {
     private LocalDateTime dataPassagem;
     private String        requisicao;
     private static final DateTimeFormatter formatter =
-            DateTimeFormatter.ofPattern("HH:mm dd/mm");
+            DateTimeFormatter.ofPattern("HH:mm dd/MM");
 
     public Passageiro(String nome){
         this.nome = nome;
