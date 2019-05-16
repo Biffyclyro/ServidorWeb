@@ -1,6 +1,5 @@
 package logger;
 
-import javax.swing.text.DateFormatter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;

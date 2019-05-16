@@ -1,6 +1,5 @@
 package conexao;
 
-
 import logger.LogService;
 import model.Onibus;
 import model.Passageiro;

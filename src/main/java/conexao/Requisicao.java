@@ -1,7 +1,5 @@
 package conexao;
 
-import logger.LogService;
-
 import java.util.HashMap;
 import java.util.Map;
 

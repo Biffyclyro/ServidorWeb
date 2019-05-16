@@ -1,6 +1,5 @@
 package view;
 
-import conexao.ConectionHandler;
 import conexao.Requisicao;
 
 public class Formulario extends Pagina {
