@@ -80,7 +80,7 @@ public class Index extends Pagina {
                         "</content>"+"</Html>";
     }
 
-
+    //algoritimo que gera o onibus
     private String gerarOnibus() {
         StringBuilder onibus= new StringBuilder();
 
@@ -99,14 +99,19 @@ public class Index extends Pagina {
                         .append("</br>").append(psg.getDataPassgem())
                         .append( "</div>\n");
             }
+
+            //começa pelos ímpares, quando cega em 25, imprime os pares
             if ( i==25 ) {
                 i = 0;
             } else if ( i==26 ) {
+                //chegando no 26 ele imprime o corredor
                 for ( int j = 0; j < 13; j++ ){
                     onibus.append("<div class=\"corredor\"></div>\n");
                 }
                 i = 25;
+                //apos, volta ao 25 e começa a imprimir novamente os ímpares
             } else if ( i == 51) {
+                //terminando a fileira impar, volta para o 26 e imprime a ultima linha dos pares
                 i = 26;
             }
         }
